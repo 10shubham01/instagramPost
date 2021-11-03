@@ -26,7 +26,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .v-card--reveal {
   bottom: 0;
   opacity: 1 !important;

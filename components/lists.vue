@@ -1,6 +1,8 @@
 <template>
-  <div class="container">
-    <card v-for="post in posts" :key="post.id" :initialData="post" />
+  <div>
+    <div class="container">
+      <card v-for="post in posts" :key="post.id" :initialData="post" />
+    </div>
   </div>
 </template>
 <script>
@@ -21,14 +23,26 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .container {
+  position: absolute;
+  top: 10vh;
+  left: 0;
+  right: 0;
+  margin: auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1%;
-  height: 90vh;
+  height: 85vh;
   width: 100%;
-  background: orange;
   overflow: auto;
+}
+.container::-webkit-scrollbar {
+  display: none;
+}
+@media (max-width: 700px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

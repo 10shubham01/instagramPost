@@ -1,7 +1,14 @@
-<template></template>
+<template>
+  <lists />
+</template>
 
 <script>
-export default {};
+import lists from "../components/lists.vue";
+export default {
+  components: {
+    lists,
+  },
+};
 </script>
 
 <style>
