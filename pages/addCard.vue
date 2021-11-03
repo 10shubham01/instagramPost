@@ -72,6 +72,4 @@ export default {
   margin: auto;
   height: 20vh;
 }
-.wrapper {
-}
 </style>

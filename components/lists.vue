@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="container">
-      <card v-for="post in posts" :key="post.id" :initialData="post" />
+      <card
+        v-for="post in posts"
+        :key="post.id"
+        :initialData="post"
+        v-on:deleteCard="deleteCard($event)"
+      />
     </div>
   </div>
 </template>
@@ -16,11 +21,25 @@ export default {
   data: () => ({
     posts: [],
   }),
+  methods: {
+    async deleteCard(id) {
+      const api = `https://jsonplaceholder.typicode.com/posts/${id}`;
+      await axios.delete(api).then((resp) => resp.data);
+      this.posts = this.posts.filter((post) => post.id !== id);
+    },
+  },
   async created() {
     const api = "https://jsonplaceholder.typicode.com/posts";
     const posts = await axios.get(api).then((resp) => resp.data);
     this.posts = posts;
   },
+
+  // async asyncData({ $axios }) {
+  //   const posts = await $axios.$get(
+  //     "https://jsonplaceholder.typicode.com/posts"
+  //   );
+  //   this.posts = posts;
+  // },
 };
 </script>
 <style scoped>

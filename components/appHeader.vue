@@ -2,8 +2,8 @@
   <header>
     <div class="nav-links">
       <ul>
-        <li><nuxt-link to="/">Home</nuxt-link></li>
-        <li><nuxt-link to="/addCard">Add card</nuxt-link></li>
+        <li><nuxt-link to="/">HOME</nuxt-link></li>
+        <li><nuxt-link to="/addCard">ADD CARD</nuxt-link></li>
       </ul>
     </div>
   </header>
@@ -19,10 +19,10 @@ export default {
 header {
   position: fixed;
   height: 8vh;
-  background: #eee;
+  background: #1e1e1e;
   box-shadow: 0 0 10px black;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   z-index: 1;
 }
@@ -38,12 +38,19 @@ header {
   height: 100%;
   /* background: red; */
 }
-a {
+a,
+nuxt-link {
   text-decoration: none;
-  color: black;
+  color: white !important;
 }
 .nav-links > ul > li {
   list-style: none;
+}
+@media (max-width: 700px) {
+  .nav-links {
+    height: 100%;
+    width: 90%;
+  }
 }
 </style>
 

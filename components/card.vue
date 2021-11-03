@@ -7,9 +7,13 @@
         {{ initialData.body }}
       </div>
     </v-card-text>
-    <v-card-actions>
-      <v-btn outlined rounded text> Edit </v-btn>
-      <v-btn outlined rounded text> Delete </v-btn>
+    <v-card-actions max-width="300">
+      <v-btn color="primary" fab small dark>
+        <v-icon>mdi-pencil</v-icon>
+      </v-btn>
+      <v-btn @click="deleteCard" color="error" fab small dark
+        ><v-icon> mdi-delete </v-icon>
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -23,6 +27,11 @@ export default {
   data: () => ({
     reveal: false,
   }),
+  methods: {
+    deleteCard() {
+      this.$emit("deleteCard", this.initialData.id);
+    },
+  },
 };
 </script>
 
