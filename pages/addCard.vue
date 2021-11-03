@@ -1,36 +1,32 @@
 <template>
-  <v-app class="wrapper">
-    <div class="container">
-      <v-form>
-        <v-row>
-          <v-col cols="12" md="4">
-            <v-text-field
-              v-model="post.title"
-              label="Title"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="4">
-            <v-text-field
-              v-model="post.body"
-              label="Body"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="4">
-            <v-text-field
-              v-model="post.userId"
-              label="UserId"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-btn @click="onBtnClick" depressed color="primary">
-            Add Card
-          </v-btn>
-        </v-row>
-      </v-form>
-    </div>
-  </v-app>
+  <div class="container">
+    <v-form>
+      <v-row>
+        <v-col cols="12" md="4">
+          <v-text-field
+            v-model="post.title"
+            label="Title"
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" md="4">
+          <v-text-field
+            v-model="post.body"
+            label="Body"
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" md="4">
+          <v-text-field
+            v-model="post.userId"
+            label="UserId"
+            required
+          ></v-text-field>
+        </v-col>
+        <v-btn @click="onBtnClick" depressed color="primary"> Add Card </v-btn>
+      </v-row>
+    </v-form>
+  </div>
 </template>
 
 <script>
