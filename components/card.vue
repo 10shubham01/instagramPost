@@ -1,42 +1,29 @@
 <template>
-  <v-card
-    class="mx-auto"
-    max-width="344"
-  >
+  <v-card class="mx-auto" max-width="344">
     <v-card-text>
-      <div>{{title}}</div>
-     
+      <h3>{{ initialData.title }}</h3>
+
       <div class="text--primary">
-       {{body}}
+        {{ initialData.body }}
       </div>
     </v-card-text>
-     <v-card-actions>
-      <v-btn
-        outlined
-        rounded
-        text
-      >
-       Edit
-      </v-btn>
-      <v-btn
-        outlined
-        rounded
-        text
-      >
-        Delete
-      </v-btn>
+    <v-card-actions>
+      <v-btn outlined rounded text> Edit </v-btn>
+      <v-btn outlined rounded text> Delete </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
 export default {
-name:"card"
-,props:["title","id","body"],
+  name: "card",
+  props: {
+    initialData: { type: Object, default: null, required: true },
+  },
   data: () => ({
-      reveal: false,
-    }),
-}
+    reveal: false,
+  }),
+};
 </script>
 
 <style>
