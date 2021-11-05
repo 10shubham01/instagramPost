@@ -7,8 +7,14 @@
         {{ initialData.body }}
       </div>
     </v-card-text>
-    <v-card-actions max-width="300">
-      <v-btn color="primary" fab small dark>
+    <v-card-actions>
+      <v-btn
+        color="primary"
+        fab
+        small
+        dark
+        @click="$router.push(`/${initialData.id}`)"
+      >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
       <v-btn @click="deleteCard" color="error" fab small dark
@@ -41,5 +47,14 @@ export default {
   opacity: 1 !important;
   position: absolute;
   width: 100%;
+}
+.v-card__actions {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  padding: 8 px;
+}
+h3 {
+  text-transform: uppercase;
 }
 </style>

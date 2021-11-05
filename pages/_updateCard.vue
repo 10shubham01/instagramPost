@@ -17,7 +17,9 @@
           ></v-text-field>
         </v-col>
 
-        <v-btn @click="onBtnClick" depressed color="primary"> Add Card </v-btn>
+        <v-btn @click="onBtnClickUpdate" depressed color="primary">
+          Update Card
+        </v-btn>
       </v-row>
     </v-form>
   </div>
@@ -25,7 +27,6 @@
 
 <script>
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 
 export default {
   data() {
@@ -34,25 +35,26 @@ export default {
         title: "",
         body: "",
       },
-      newCard: {},
     };
   },
   methods: {
-    async postData(body) {
-      const api = "https://jsonplaceholder.typicode.com/posts";
-      const newCard = await axios
-        .post(api, body, {
-          "Content-type": "application/json; charset=UTF-8",
-        })
+    async updateCard(body) {
+      await axios
+        .put(
+          `https://jsonplaceholder.typicode.com/posts/${this.$route.params.updateCard}`,
+          body
+        )
         .then((resp) => resp.data);
-      this.newCard = newCard;
     },
-
-    onBtnClick: function (e) {
-      e.preventDefault();
-      this.postData({ ...this.post, userId: uuidv4() });
-      this.post = {};
+    onBtnClickUpdate() {
+      this.updateCard(this.post);
     },
+  },
+  async created() {
+    const api = `https://jsonplaceholder.typicode.com/posts/${this.$route.params.updateCard}`;
+    const post = await axios.get(api).then((resp) => resp.data);
+    this.post.title = post.title;
+    this.post.body = post.body;
   },
 };
 </script>
