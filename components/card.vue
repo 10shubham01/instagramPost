@@ -13,7 +13,7 @@
         fab
         small
         dark
-        @click="$router.push(`/${initialData.id}`)"
+        @click="$router.push(`/card/${initialData.id}`)"
       >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>

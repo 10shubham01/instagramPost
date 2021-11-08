@@ -17,13 +17,13 @@
           ></v-text-field>
         </v-col>
 
-        <v-btn @click="onBtnClickUpdate" depressed color="primary">
-          Update Card
+        <v-btn @click="onClick" depressed color="primary">
+          {{ isId ? "Add Card" : "Update Card" }}
         </v-btn>
       </v-row>
     </v-form>
     <v-snackbar v-model="snackbar" :timeout="timeout">
-      {{ text }}
+      {{ isId ? textAdd : textUpdate }}
 
       <template v-slot:action="{ attrs }">
         <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
@@ -36,7 +36,7 @@
 
 <script>
 import axios from "axios";
-
+import { v4 as uuidv4 } from "uuid";
 export default {
   data() {
     return {
@@ -44,11 +44,25 @@ export default {
         title: "",
         body: "",
       },
+      isId: false,
+      newCard: {},
       snackbar: false,
-      text: "Card Updated",
+      textAdd: "Card Added",
+      textUpdate: "Card Updated",
       timeout: 2000,
     };
   },
+  async created() {
+    if (this.$route.params.updateCard) {
+      const api = `https://jsonplaceholder.typicode.com/posts/${this.$route.params.updateCard}`;
+      const post = await axios.get(api).then((resp) => resp.data);
+      this.post.title = post.title;
+      this.post.body = post.body;
+    } else {
+      this.isId = true;
+    }
+  },
+
   methods: {
     async updateCard(body) {
       await axios
@@ -58,16 +72,30 @@ export default {
         )
         .then((resp) => resp.data);
     },
-    onBtnClickUpdate() {
-      this.updateCard(this.post);
-      this.snackbar = true;
+    async postData(body) {
+      const api = "https://jsonplaceholder.typicode.com/posts";
+      const newCard = await axios
+        .post(api, body, {
+          "Content-type": "application/json; charset=UTF-8",
+        })
+        .then((resp) => resp.data);
+      this.isEdit = true;
+      this.$store.commit("addPost", newCard);
     },
-  },
-  async created() {
-    const api = `https://jsonplaceholder.typicode.com/posts/${this.$route.params.updateCard}`;
-    const post = await axios.get(api).then((resp) => resp.data);
-    this.post.title = post.title;
-    this.post.body = post.body;
+
+    onClick(e) {
+      if (this.isId) {
+        e.preventDefault();
+        this.postData({ ...this.post, userId: uuidv4() });
+        this.snackbar = true;
+        setTimeout(() => {
+          this.$router.push("/");
+        }, 500);
+      } else {
+        this.updateCard(this.post);
+        this.snackbar = true;
+      }
+    },
   },
 };
 </script>
