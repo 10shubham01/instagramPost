@@ -45,7 +45,7 @@ export default {
           "Content-type": "application/json; charset=UTF-8",
         })
         .then((resp) => resp.data);
-      this.newCard = newCard;
+      this.$store.commit("addPost", newCard);
     },
 
     onBtnClick: function (e) {

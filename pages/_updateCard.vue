@@ -22,6 +22,15 @@
         </v-btn>
       </v-row>
     </v-form>
+    <v-snackbar v-model="snackbar" :timeout="timeout">
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -35,6 +44,9 @@ export default {
         title: "",
         body: "",
       },
+      snackbar: false,
+      text: "Card Updated",
+      timeout: 2000,
     };
   },
   methods: {
@@ -48,6 +60,7 @@ export default {
     },
     onBtnClickUpdate() {
       this.updateCard(this.post);
+      this.snackbar = true;
     },
   },
   async created() {

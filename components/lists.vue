@@ -13,43 +13,56 @@
         v-on:deleteCard="deleteCard($event)"
       />
     </div>
+    <v-snackbar v-model="snackbar" :timeout="timeout">
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 <script>
 import axios from "axios";
 import card from "./card.vue";
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
+
 export default {
   components: {
     card,
   },
   name: "lists",
   data: () => ({
-    posts: [],
+    snackbar: false,
+    text: "Card Deleted",
+    timeout: 2000,
   }),
   methods: {
     async deleteCard(id) {
       const api = `https://jsonplaceholder.typicode.com/posts/${id}`;
       await axios.delete(api).then((resp) => resp.data);
-      this.posts = this.posts.filter((post) => post.id !== id);
+      this.$store.commit("removePost", id);
+      this.snackbar = true;
     },
     async filterCard(id) {
-      console.log(id);
-      const api = `https://jsonplaceholder.typicode.com/posts?userId=${id}`;
+      const api = `https://jsonplaceholder.typicode.com/posts?title=${id}`;
       const filteredCard = await axios.get(api).then((resp) => resp.data);
       this.posts = filteredCard;
     },
     search: function (e) {
       if (e.keyCode == 13) {
-        console.log(e.target.value);
         this.filterCard(e.target.value);
       }
     },
   },
-  async created() {
-    const api = "https://jsonplaceholder.typicode.com/posts";
-    const posts = await axios.get(api).then((resp) => resp.data);
-    this.posts = posts;
-    console.log();
+  computed: {
+    ...mapGetters(["posts"]),
+  },
+
+  mounted() {
+    this.$store.dispatch("loadPosts");
   },
 };
 </script>
