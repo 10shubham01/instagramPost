@@ -3,7 +3,7 @@
     <div class="nav-links">
       <ul>
         <li><nuxt-link to="/">HOME</nuxt-link></li>
-        <li><nuxt-link to="/card">ADD CARD</nuxt-link></li>
+        <li><nuxt-link to="/posts">ADD CARD</nuxt-link></li>
       </ul>
     </div>
   </header>

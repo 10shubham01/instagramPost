@@ -2,7 +2,6 @@
   <v-card class="mx-auto" max-width="344">
     <v-card-text>
       <h3>{{ initialData.title }}</h3>
-
       <div class="text--primary">
         {{ initialData.body }}
       </div>
@@ -13,7 +12,7 @@
         fab
         small
         dark
-        @click="$router.push(`/card/${initialData.id}`)"
+        @click="$router.push(`/posts/${initialData.id}`)"
       >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>

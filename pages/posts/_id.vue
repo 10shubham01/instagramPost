@@ -17,7 +17,7 @@
           ></v-text-field>
         </v-col>
 
-        <v-btn @click="onClick" depressed color="primary">
+        <v-btn @click="submitPost" depressed color="primary">
           {{ isId ? "Add Card" : "Update Card" }}
         </v-btn>
       </v-row>
@@ -53,8 +53,8 @@ export default {
     };
   },
   async created() {
-    if (this.$route.params.updateCard) {
-      const api = `https://jsonplaceholder.typicode.com/posts/${this.$route.params.updateCard}`;
+    if (this.$route.params.id) {
+      const api = `https://jsonplaceholder.typicode.com/posts/${this.$route.params.id}`;
       const post = await axios.get(api).then((resp) => resp.data);
       this.post.title = post.title;
       this.post.body = post.body;
@@ -67,7 +67,7 @@ export default {
     async updateCard(body) {
       await axios
         .put(
-          `https://jsonplaceholder.typicode.com/posts/${this.$route.params.updateCard}`,
+          `https://jsonplaceholder.typicode.com/posts/${this.$route.params.id}`,
           body
         )
         .then((resp) => resp.data);
@@ -83,7 +83,7 @@ export default {
       this.$store.commit("addPost", newCard);
     },
 
-    onClick(e) {
+    submitPost(e) {
       if (this.isId) {
         e.preventDefault();
         this.postData({ ...this.post, userId: uuidv4() });
