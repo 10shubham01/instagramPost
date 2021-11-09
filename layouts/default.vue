@@ -1,19 +1,17 @@
 <template>
-  <div>
+  <v-app>
     <appHeader />
-    <lists />
     <Nuxt />
-  </div>
+  </v-app>
 </template>
 <script>
 import appHeader from "../components/appHeader.vue";
-import lists from "../components/lists.vue";
 export default {
   components: {
     appHeader,
-    lists,
   },
 };
 </script>
 
-<style>
+<style scoped>
+</style>
